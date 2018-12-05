@@ -1,0 +1,29 @@
+<h1>{{ todolist.title }}</h1>
+{% extends 'index.html' %}
+
+{% block nav %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<ul>
+{% for item in items %}
+    <li>
+        {{ item.description }} - Priority: {{ item.priority }} 
+        <form method="POST" action="{{'/update/'~item.id}}">
+            {{ form.hidden_tag() }}
+            {{ form.priority(value = item.priority) }}
+            {{ form.submit.label }}{{ form.submit() }}
+        </form>
+    </li>
+{% endfor %}
+</ul>
+
+<div>
+{% for message in get_flashed_messages() %}
+<strong>*** {{ message }} ***</strong>
+{% endfor %}
+</div>
+
+{% endblock %}
